@@ -7,6 +7,10 @@ on:
       - 'prototype/index.html'
       - 'prototype/video-ui.js'
       - 'prototype/video-ui.css'
+      - 'prototype/workspace.js'
+      - 'prototype/workspace.css'
+      - 'prototype/private-ui.js'
+      - 'prototype/private-ui.css'
       - 'prototype/assets/**'
       - '.github/workflows/pages.yml'
   workflow_dispatch:
@@ -32,7 +36,7 @@ jobs:
       - name: Prepare site
         run: |
           mkdir -p _site
-          cp prototype/index.html prototype/video-ui.js prototype/video-ui.css _site/
+          cp prototype/index.html prototype/*.js prototype/*.css _site/
           cp -R prototype/assets _site/assets
           touch _site/.nojekyll
       - name: Configure Pages
