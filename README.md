@@ -26,7 +26,8 @@ python3 -m http.server 4173 --bind 127.0.0.1 --directory prototype
 
 - `prototype/index.html`：工作台页面。
 - `prototype/workspace.js`、`prototype/workspace.css`：公共布局与主交互。
-- `prototype/private-ui.js`、`prototype/private-ui.css`：私域四个工作空间。
+- `prototype/private-ui.js`、`prototype/private-ui.css`：私域基础查询与示例模型。
+- `prototype/private-agent.js`、`prototype/private-agent.css`：私域一句话需求入口与整套预览。
 - `prototype/video-ui.js`：需求优先的创作、成片预览与确认发布流程。
 - `prototype/douyin-model.js`：独立业务模型，校验授权范围、门店商品、发布确认与日报/直播状态。
 - `prototype/douyin-ui.js`、`prototype/douyin-ui.css`：抖音授权中心、经营日报、直播巡检和公共布局。
@@ -49,7 +50,7 @@ POI与原生团购商品同时挂载仍待官方能力确认；当前仅保存�
 
 ## 私域流程与知识范围
 
-客户群发支持选择企业和员工、按条件筛选客户或匹配会员号名单、排除客户、编辑文本与附加素材、预览范围并保存演示草案。修改范围或内容后需要重新预览，切换企业会清除员工与筛选条件。客户群聊群发仅提供历史统计查询。
+私域默认从一句话需求开始。客户群发自动整理已绑定客户范围、按归属关联员工、文案、海报预览和发送时间，客户查看整套预览后一次确认；不要求逐步选择员工与填写表单。支持继续用一句话调整需求，修改后旧确认失效。当前语义识别使用本地规则，海报为预置示例，均非实时模型或业务服务输出。未知门店、未配置画像或不支持的渠道不会自动扩大范围。统计与群聊查询也使用一句话入口，可选条件收纳在折叠区中。
 
 运营统计包含客户总览、员工/油站/渠道排行、留存趋势入口、群聊统计，以及客户私聊和客户群聊两类群发的接收与员工发送明细。所有数字来自本地虚构示例；留存口径未明确时不生成留存率。
 

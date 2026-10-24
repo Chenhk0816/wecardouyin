@@ -35,6 +35,7 @@ jobs:
         run: |
           for script in prototype/*.js; do node --check "$script"; done
           node tests/private-flow.test.cjs
+          node tests/private-agent.test.cjs
           node tests/douyin-flow.test.cjs
           node tests/douyin-ui-state.test.cjs
           node tests/douyin-capability-boundary.test.cjs
