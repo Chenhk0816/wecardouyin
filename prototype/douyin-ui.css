@@ -4,3 +4,5 @@
 
 .douyin-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.dy-work{overflow-wrap:anywhere}.dy-grid.three{margin-bottom:0}.dy-upload:focus-within{outline:2px solid #19a393;outline-offset:3px}
 @media(max-width:760px){.dy-card .dy-caption{overflow-wrap:anywhere}.dy-row.actions{align-items:flex-start}.dy-row.actions>small{flex-basis:100%}}
+
+.dy-poi-form{margin-top:12px}.dy-poi-form>label{display:block;font-size:11px;margin-bottom:6px}.dy-poi-form .dy-row{flex-wrap:nowrap}.dy-poi-form input{flex:1;min-width:0;border:1px solid #c7dcd0;border-radius:7px;padding:10px;background:white;font-size:12px}.dy-poi-form button{flex-shrink:0}

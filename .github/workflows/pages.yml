@@ -38,6 +38,7 @@ jobs:
           node tests/douyin-flow.test.cjs
           node tests/douyin-ui-state.test.cjs
           node tests/douyin-capability-boundary.test.cjs
+          node tests/douyin-poi.test.cjs
       - name: Prepare site
         run: |
           mkdir -p _site

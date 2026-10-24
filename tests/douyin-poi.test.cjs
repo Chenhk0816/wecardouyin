@@ -1,0 +1,16 @@
+const assert=require('node:assert/strict'),M=require('../prototype/douyin-model.js');
+const s=M.createState();
+assert.equal(typeof M.addPoi,'function','POI registration is available');
+const first=M.addPoi(s,' 001234567890 ');
+assert.equal(first.shop.poi,'001234567890');
+assert.equal(M.shops(s).filter(x=>x.poi==='001234567890').length,1);
+assert.equal(first.shop.verified,false);assert.equal(first.shop.merchant,'');assert.equal(s.grants.length,0,'adding POI never creates authorization');
+assert.equal(M.addPoi(s,'001234567890').duplicate,true);
+assert.equal(M.products(s,first.shop.id).length,0);
+assert.throws(()=>M.demoAuthorize(s,'douyin','a-hq',['publish'],[first.shop.id]),/门店|核验/,'unverified POI cannot be granted');
+for(const v of ['', 'https://douyin.com/123','<script>','带空格 123'])assert.throws(()=>M.addPoi(s,v),/POI/);
+M.changeTenant(s,'b');assert.equal(M.shops(s).some(x=>x.id===first.shop.id),false);
+M.addPoi(s,'001234567890');assert.equal(s.addedShops.length,2,'same POI stored separately by tenant');
+const restored=M.createState();M.restorePois(restored,JSON.parse(JSON.stringify(s.addedShops)));assert.equal(M.shops(restored).some(x=>x.poi==='001234567890'),true);assert.equal(restored.grants.length,0);
+M.restorePois(restored,[{tenant:'a',poi:'<script>',verified:true,merchant:'a-merchant'}]);assert.equal(restored.addedShops.length,2,'invalid saved POI ignored');
+console.log('PASS: POI add, validation, deduplication, persistence, tenant isolation, no implicit permissions');

@@ -57,8 +57,10 @@ POI与原生团购商品同时挂载仍待官方能力确认；当前仅保存�
 
 线上预览：[全域运营工作台](https://chenhk0816.github.io/wecardouyin/)。
 
-验证命令：`node tests/private-flow.test.cjs`、`node tests/douyin-flow.test.cjs`、`node tests/douyin-ui-state.test.cjs`、`node tests/douyin-capability-boundary.test.cjs`。
+验证命令：`node tests/private-flow.test.cjs`、`node tests/douyin-flow.test.cjs`、`node tests/douyin-ui-state.test.cjs`、`node tests/douyin-capability-boundary.test.cjs`、`node tests/douyin-poi.test.cjs`。
 
 2026-10-24官方文档复核结果见 [能力边界复核](docs/douyin-capability-audit-2026-10-24.md)。未确认或下线能力已在业务模型禁用，并清理旧浏览器示例授权。
 
-本次原型说明与后续接口边界见 [抖音员工接入说明](docs/douyin-integration.md)。线上通过 `main` 分支的 GitHub Pages 工作流发布；发布前自动运行四组测试，本地修改不会直接改变线上页面。
+本次原型说明与后续接口边界见 [抖音员工接入说明](docs/douyin-integration.md)。线上通过 `main` 分支的 GitHub Pages 工作流发布；发布前自动运行五组测试，本地修改不会直接改变线上页面。
+
+来客连接弹窗支持仅输入 POI ID 新增门店关联，按企业保存到当前浏览器、重复ID去重。新增记录不会取得账号/商品权限，归属待官方核验；不能勾选为已授权资源。
