@@ -4,14 +4,8 @@ on:
   push:
     branches: [main]
     paths:
-      - 'prototype/index.html'
-      - 'prototype/video-ui.js'
-      - 'prototype/video-ui.css'
-      - 'prototype/workspace.js'
-      - 'prototype/workspace.css'
-      - 'prototype/private-ui.js'
-      - 'prototype/private-ui.css'
-      - 'prototype/assets/**'
+      - 'prototype/**'
+      - 'tests/**'
       - '.github/workflows/pages.yml'
   workflow_dispatch:
 
@@ -33,6 +27,17 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Verify prototype
+        run: |
+          for script in prototype/*.js; do node --check "$script"; done
+          node tests/private-flow.test.cjs
+          node tests/douyin-flow.test.cjs
+          node tests/douyin-ui-state.test.cjs
+          node tests/douyin-capability-boundary.test.cjs
       - name: Prepare site
         run: |
           mkdir -p _site

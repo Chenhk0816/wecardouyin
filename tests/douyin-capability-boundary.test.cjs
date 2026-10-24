@@ -1,0 +1,16 @@
+const assert=require('node:assert/strict'),M=require('../prototype/douyin-model.js');
+const s=M.createState();
+assert.throws(()=>M.demoAuthorize(s,'douyin','a-hq',['live'],['a-river']),/未确认|不可|下线/,'discontinued general live data cannot be granted');
+assert.throws(()=>M.demoAuthorize(s,'douyin','a-hq',['video'],['a-river']),/未确认|不可|待核验/,'unverified website video metrics cannot be granted');
+assert.throws(()=>M.demoAuthorize(s,'laike','a-merchant',['reviews'],['a-river']),/未确认|不可|餐饮/,'catering review scope cannot be offered to fuel station');
+s.grants.push({tenant:'a',id:'a-hq',kind:'douyin',active:true,expires:Date.now()+10000,scopes:['live','video'],shops:['a-river']},{tenant:'a',id:'a-merchant',kind:'laike',active:true,expires:Date.now()+10000,scopes:['reviews'],shops:['a-river']});
+assert.equal(M.grant(s,'douyin','a-hq','live','a-river'),undefined,'legacy saved demo grants cannot bypass policy');
+const r=M.dailyReport(s,'a-river','2026-10-23',true);assert.equal(r.metrics[3].value,null);assert.equal(r.metrics[4].value,null);assert.equal(r.reviews,null);
+assert.match(r.metrics[3].status,/下线/);assert.match(r.metrics[4].status,/待核验/);
+assert.equal(M.policy.nativeProduct.selectable,false,'unverified native product mount is never selectable');
+assert.equal(M.policy.liveCapture.selectable,false,'no public link capture API is assumed');
+M.demoAuthorize(s,'douyin','a-hq',['publish'],['a-river']);M.demoAuthorize(s,'laike','a-merchant',['goods'],['a-river']);
+s.asset={id:'demo',kind:'demo',confirmed:true};s.brief=M.prefill('展示门店');s.target={shop:'a-river',account:'a-hq',product:'',title:'门店展示',mode:'poi'};
+assert.equal(M.validatePublish(s),'','POI route does not force unverified product mounting');
+s.target.mode='nativeProduct';assert.match(M.validatePublish(s),/商品.*未|挂载.*核验/);
+console.log('PASS: deprecated/unverified capabilities denied, legacy grants filtered, metrics unknown, POI vs native-product boundary');
